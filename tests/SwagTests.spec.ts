@@ -9,20 +9,19 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("e2e", async ({ page }) => {
-  //Проверка тайтла
-  await expect(page).toHaveTitle("Swag Labs");
-
-  //Сортировка по убыванию цены
+  test.step("Проверка тайтла", async () => {
+    await expect(page).toHaveTitle("Swag Labs");
+  });
+  // Сортировка по убыванию цены
   await page
     .locator('[data-test="product-sort-container"]')
     .selectOption({ label: "Price (high to low)" });
 
-  //Добавление флиосовой толстовки и портфеля в корзину
+  // "Добавление флиосовой толстовки и портфеля в корзину"
   await page
     .locator('[data-test="add-to-cart-sauce-labs-fleece-jacket"]')
     .click();
   await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
-
-  //Переход в корзину
+  // Переход в корзину
   await page.locator('[data-test="shopping-cart-link"]').click();
 });
