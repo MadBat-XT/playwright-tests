@@ -1,13 +1,16 @@
 import { test, expect } from "@playwright/test";
 
-test("e2e", async ({ page }) => {
+//Авторизация перед всеми тестами
+test.beforeEach(async ({ page }) => {
   await page.goto("https://www.saucedemo.com/");
-  await expect(page).toHaveTitle("Swag Labs");
-
-  // Ввод логина и пароля
   await page.getByPlaceholder("Username").fill("standard_user");
   await page.getByPlaceholder("Password").fill("secret_sauce");
   await page.getByRole("button").click();
+});
+
+test("e2e", async ({ page }) => {
+  //Проверка тайтла
+  await expect(page).toHaveTitle("Swag Labs");
 
   //Сортировка по убыванию цены
   await page
